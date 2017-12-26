@@ -41,20 +41,20 @@ def genData(fct, x, timeSteps):
     sin = 5*fct(x)
     cos = 10*np.cos(x)
     input = sin
-    input = np.c_[input, cos]
-    input = np.c_[input, input]
-    input = np.c_[input, input]
-    input = np.c_[input, input]
+    input = np.c_[input, 10*x + cos]
+    # input = np.c_[input, input]
+    # input = np.c_[input, input]
+    # input = np.c_[input, x]
     input = addNoise(input)
 
     output = np.multiply(sin, cos)
     output = np.add(output, 10*cos)
-    output = np.c_[output, 50*np.sin(cos)]
+    output = np.c_[output, 1 + cos]
 
     dataInput = pd.DataFrame(input)
     dataOutput = pd.DataFrame(output)
     x_train, x_valid, x_test = prepData(dataInput, timeSteps, isLabel=False)
-    y_train, y_valid, y_test = prepData(dataOutput, timeSteps, isLabel=True)
+    y_train, y_valid, y_test = prepData(dataInput, timeSteps, isLabel=True)
 
     resultX = dict(train=x_train, val = x_valid, test = x_test)
     resultY = dict(train=y_train, val = y_valid, test = y_test)
