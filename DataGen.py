@@ -43,8 +43,8 @@ def genData(fct, x, timeSteps):
     input = sin
     input = np.c_[input, cos]
     input = np.c_[input, input]
-    # input = np.c_[input, input]
-    # input = np.c_[input, input]
+    input = np.c_[input, input]
+    input = np.c_[input, input]
     input = addNoise(input)
 
     output = np.multiply(sin, cos)
